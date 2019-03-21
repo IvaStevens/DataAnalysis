@@ -1,7 +1,13 @@
 % Load Data
-load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00073.mat');
-DataF = Data;
-load('C:/Users/Ivana/Box/Motorlab_data/Intermediate/Sonic.00073.mat');
+if ~strcmp(computer, 'GLNXA64')
+    load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00073.mat');
+    DataF = Data;
+    load('C:/Users/Ivana/Box/Motorlab_data/Intermediate/Sonic.00073.mat');
+else
+    load('/home/ivana/Desktop/Data/Formatted/Sonic.00073.mat');
+    DataF = Data;
+    load('/home/ivana/Desktop/Data/Intermediate/Sonic.00073.mat');    
+end
 
 % Find where id == 3 (eg: when in forceRamp task state)
 forceTaskState = Data.QL.Data.TASK_STATE_CONFIG.id == 3;
@@ -38,6 +44,15 @@ spikes4plotting = splitSamples(Data.QL.Data.RAW_SPIKECOUNT.counts,...
 % There are 4 trial types (one force and 4 directions)
 % Find indices for each
 output = separateTrialType(reducedTargets, spikes4plotting);
+bx = output{4};
+ex = bx(:,559,:);
+plotSpikeRaster(squeeze(ex) > 1);
 
+
+% This is plotting all of the trials (992 of them)
+% reduce to only successful trials
+% insure correct separation of trial types... should only be 4...
+% run with good data
+% Present Data along target trajectory
 
 
