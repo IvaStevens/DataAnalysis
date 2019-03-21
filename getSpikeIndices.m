@@ -1,4 +1,4 @@
-function spikeInd = getSpikeIndices(timeInd, timeData, spikeTimes, epsilon)
+function spikeInd = getSpikeIndices(timeInd, spikeTimes, epsilon)
 % getSpikeIndices(indices, timeData, spikeTimes) 
 % 
 % Returns the indices of Spike data that occurs at/just before the times 
@@ -13,16 +13,16 @@ function spikeInd = getSpikeIndices(timeInd, timeData, spikeTimes, epsilon)
 % If not defined, it is set to like 0.0000001...
 
 % Requires that the indices are increasing
-if min(diff(timeData) < 0) || min(diff(timeInd) < 0) ||...
-        min(diff(spikeTimes) < 0)
-    error('Error: timeData, and timeInd should be increasing');
-end
+% if min(diff(timeData) < 0) || min(diff(timeInd) < 0) ||...
+%         min(diff(spikeTimes) < 0)
+%     error('Error: timeData, and timeInd should be increasing');
+% end
 
-if nargin < 4
+if nargin < 3
     epsilon = 0.00000001;
 end
 
-timeSamples = timeData(timeInd);
+timeSamples = timeInd;
 spikeInd = nan(length(timeInd), 1);
 
 % Binary search for each index? 
@@ -38,10 +38,10 @@ for sample = 1:length(timeSamples)
         spikeValue = spikeTimes(middleInd);
         
         if abs(searchValue - spikeValue) < epsilon
-            spikeInd(sample) = spikeValue;
+            spikeInd(sample) = middleInd;
             break;
         elseif leftInd == rightInd -1 
-            spikeInd(sample) = spikeValue;
+            spikeInd(sample) = middleInd;
             break;
         elseif spikeValue < searchValue
             leftInd = middleInd;

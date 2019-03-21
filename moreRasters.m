@@ -1,7 +1,7 @@
 % Load Data
-load('/home/ivana/Desktop/Data/Formatted/Sonic.00073.mat');
+load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00073.mat');
 DataF = Data;
-load('/home/ivana/Desktop/Data/Intermediate/Sonic.00073.mat');
+load('C:/Users/Ivana/Box/Motorlab_data/Intermediate/Sonic.00073.mat');
 
 % Find where id == 3 (eg: when in forceRamp task state)
 forceTaskState = Data.QL.Data.TASK_STATE_CONFIG.id == 3;
@@ -28,7 +28,7 @@ spikeLocations = activeUnits > 0;
 
 % Find index for timestamp at same time as a successTime
 spikeInd = getSpikeIndices(successTimes,...
-    Data.QL.Data.RAW_SPIKECOUNT.source_timestamp,...
+    Data.QL.Headers.RAW_SPIKECOUNT.recv_time,...
     0.01);
 
 spikes4plotting = splitSamples(Data.QL.Data.RAW_SPIKECOUNT.counts,...
@@ -37,7 +37,7 @@ spikes4plotting = splitSamples(Data.QL.Data.RAW_SPIKECOUNT.counts,...
 
 % There are 4 trial types (one force and 4 directions)
 % Find indices for each
-output = separateTrialType(targets, spikes4plotting);
+output = separateTrialType(reducedTargets, spikes4plotting);
 
 
 

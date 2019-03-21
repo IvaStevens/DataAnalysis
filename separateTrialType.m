@@ -11,5 +11,5 @@ output = cell(1,nTypes);
 
 for mi = 1 : nTypes
     indices = types == mi;
-    output{mi} = formattedSpikes(indices,:);
+    output{mi} = formattedSpikes(indices,:,:);
 end
