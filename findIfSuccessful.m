@@ -31,17 +31,17 @@ max(indices,2)
 assert(true, "");
 assert(length(startInds) == length(endInds), "Error, index array lengths")
 
-lastStart = 1;
 mInds = length(startInds);
 
 for iTrial = 1:nTrials
     trialTime = trials(iTrial);
     
-    % Find the 1st endInds that is > trialTime, starting with
-    % endInds(lastStart)
+    % Find the 1st endInds that is > trialTime
+    lastStart = find(endInds > trialTime, 1);
     
     if startInds(lastStart) < trialTime
         out(iTrial) = 1;
+        continue;
     end
         
     % If the trial exceeds successful trials, break early
