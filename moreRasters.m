@@ -1,12 +1,12 @@
 % Load Data
 if ~strcmp(computer, 'GLNXA64')
-    load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00073.mat');
+    load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00083.mat');
     DataF = Data;
-    load('C:/Users/Ivana/Box/Motorlab_data/Intermediate/Sonic.00073.mat');
+    load('C:/Users/Ivana/Box/Motorlab_data/Intermediate/Sonic.00083.mat');
 else
-    load('/home/ivana/Desktop/Data/Formatted/Sonic.00073.mat');
+    load('/home/ivana/Desktop/Data/Formatted/Sonic.00083.mat');
     DataF = Data;
-    load('/home/ivana/Desktop/Data/Intermediate/Sonic.00073.mat');    
+    load('/home/ivana/Desktop/Data/Intermediate/Sonic.00083.mat');    
 end
 
 % Find where id == 3 (eg: when in forceRamp task state)

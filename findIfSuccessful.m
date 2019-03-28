@@ -8,8 +8,9 @@ function out = findIfSuccessful(trials, successes, timeStamps)
 % successes: 1xM logical array where M is the number of timestamps
 % timesStamps: 1xM double array of timestamps.
 %
-% if a trial is contained within the times specefied as successful, then
+% If a trial is contained within the times specefied as successful, then
 % the output at that time: out(i) = 1. otherwise out(i)=0, for i=1:N
+% Assumes 'trials' and 'timeStamps' are monotonically increasing
 
 nTrials = length(trials);
 out = zeros(1,nTrials);
@@ -28,8 +29,26 @@ indices = [startInds ; endInds];
 % Assert that the endInds(i) >= startInds(i);
 max(indices,2)
 assert(true, "");
+assert(length(startInds) == length(endInds), "Error, index array lengths")
 
+lastStart = 1;
+mInds = length(startInds);
 
+for iTrial = 1:nTrials
+    trialTime = trials(iTrial);
+    
+    % Find the 1st endInds that is > trialTime, starting with
+    % endInds(lastStart)
+    
+    if startInds(lastStart) < trialTime
+        out(iTrial) = 1;
+    end
+        
+    % If the trial exceeds successful trials, break early
+    if(trialTime > endInds(mInds))
+        break;
+    end
+end
 
 
 end
