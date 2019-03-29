@@ -21,14 +21,14 @@ successChunks = successes.*timeStamps;
 fails = ~successes;
 % Note: 8 is chosen as random large number place holder, these are
 % otherwise logical arrays
-startInds = successChunks(diff([8, fails]) == 1);
-endInds = successChunks(diff([fails, 8]) == -1);
+startInds = successChunks(diff([8, successes]) == 1);
+endInds = successChunks(diff([successes, 8]) == -1);
 
 indices = [startInds ; endInds];
 
 % Assert that the endInds(i) >= startInds(i);
-max(indices,2)
-assert(true, "");
+%max(indices,2)
+%assert(true, "");
 assert(length(startInds) == length(endInds), "Error, index array lengths")
 
 mInds = length(startInds);
@@ -37,9 +37,9 @@ for iTrial = 1:nTrials
     trialTime = trials(iTrial);
     
     % Find the 1st endInds that is > trialTime
-    lastStart = find(endInds > trialTime, 1);
+    lastStart = find(endInds >= trialTime, 1);
     
-    if startInds(lastStart) < trialTime
+    if startInds(lastStart) <= trialTime
         out(iTrial) = 1;
         continue;
     end
