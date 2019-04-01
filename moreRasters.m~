@@ -1,5 +1,3 @@
-dbstop if error
-
 % Load Data
 if ~strcmp(computer, 'GLNXA64')
     load('C:/Users/Ivana/Box/Motorlab_data/Formatted/Sonic.00093.mat');
@@ -47,12 +45,11 @@ spikeInd = getSpikeIndices(successTimes,...
     Data.QL.Headers.RAW_SPIKECOUNT.recv_time,...
     0.01);
 
-% Are the channels zero-indexed???
-u4c32 = getSpikesByChannel(Data.QL.Data.SPIKE_SNIPPET, 32, 0);
+u4c32 = getSpikesByChannel(Data.QL.Data.SPIKE_SNIPPET, 32, 4);
 
 % Don't use counts
-% 200 ms before and after force release
-spikes4plotting = splitSamples(u4c32, spikeInd, 20); 
+spikes4plotting = splitSamples(u4c32, spikeInd,...
+    20); % 200 ms before and after force release
 
 % There are 4 trial types (one force and 4 directions)
 % Find indices for each
