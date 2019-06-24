@@ -11,6 +11,8 @@ else
     load('/home/ivana/Desktop/Data/Intermediate/Sonic.00093.mat');    
 end
 
+return;
+
 % Find where id == 3 (eg: when in forceRamp task state)
 forceTaskState = Data.QL.Data.TASK_STATE_CONFIG.id == 3;
 
